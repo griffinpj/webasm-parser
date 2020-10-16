@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<script src="a.out.js"></script>
+<script>
+  Module.onRuntimeInitialized = _ => {
+    const fib = Module.cwrap('fib', 'number', ['number']);
+    const csvParse = Module.cwrap('csv_parse', 'string', ['string'])
+    console.log(fib(12));
+    console.log(csvParse("Hello From C!"));
+  };
+</script>
+</body>
+</html>
