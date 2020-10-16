@@ -58,8 +58,40 @@ char *** parseCSV(char * myCSV) {
   return lines;
 }
 
+void printRow(char ** row) {
+        int i = 0;
+        char * temp = row[i];
+        
+         printf("[");
+
+        while (temp != NULL) {
+            printf("%s, ", temp);
+            i++;
+            temp = row[i];
+        }
+        printf("],");
+}
+
+void printCSV(char *** lines){
+  char ** temp = lines[0];
+  printf("[");
+  for(int i = 1; i <= 3; i++) {
+          if(temp != NULL) {
+            printRow(temp);
+          }
+          temp = lines[i];
+  }
+  printf("]\n");
+}
 
 EMSCRIPTEN_KEEPALIVE
 char *** csv_parse(char * csv) {
-   return parseCSV(csv);
+   char *** result = parseCSV(csv);
+   return result;
+}
+
+EMSCRIPTEN_KEEPALIVE
+void  csv_print(char * csv) {
+   char *** result = parseCSV(csv);
+   printCSV(result);
 }
